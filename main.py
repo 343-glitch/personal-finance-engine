@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from routers.transactions import router as transaction_router
 from routers.analytics import router as analytics_router
+from routers.auth import router as auth_router
 
 from database import engine, SessionLocal
 from models import Base, TransactionDB
@@ -12,6 +13,7 @@ app = FastAPI()
 
 app.include_router(transaction_router)
 app.include_router(analytics_router)
+app.include_router(auth_router)
 
 
 @app.get("/analytics/total")
