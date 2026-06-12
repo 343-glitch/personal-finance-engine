@@ -19,6 +19,9 @@ class TransactionDB(Base):
     __tablename__ = "transactions"
 
     id = Column(Integer, primary_key=True, index=True)
+
+    user_email = Column(String)
+
     amount = Column(Float)
     category = Column(String)
     description = Column(String)

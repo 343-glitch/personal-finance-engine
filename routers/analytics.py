@@ -1,16 +1,22 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from database import SessionLocal
 from models import TransactionDB
+
+from dependencies import get_current_user
 
 router = APIRouter()
 
 
 @router.get("/analytics/monthly")
-def monthly_spending():
+def monthly_spending(
+    current_user: str = Depends(get_current_user)
+):
     db = SessionLocal()
 
-    transactions = db.query(TransactionDB).all()
+    transactions = db.query(TransactionDB).filter(
+        TransactionDB.user_email == current_user
+    ).all()
 
     monthly_data = {}
 
